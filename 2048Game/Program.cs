@@ -14,6 +14,8 @@ namespace LDA1
             updateField(field);
             while (!gameOver)
             {
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.WriteLine("\nPress w, a, s or d");
                 score = getKey(field, score, out canMove);
                 if (canMove) score = placeNewNumber(field, score);
                 gameOver = isGameOver(field);
