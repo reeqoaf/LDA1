@@ -21,7 +21,8 @@ namespace _2048Game_fixed
                 gameOver = isGameOver(field);
                 updateField(field);
             }
-            Console.WriteLine("Game Over! Your score: " + score);
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("\nGame Over! Your score: " + score);
             Console.ReadLine();
 
         }
