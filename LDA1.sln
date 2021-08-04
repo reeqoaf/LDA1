@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HW2", "HW2\HW2.csproj", "{4
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HW3", "HW3\HW3.csproj", "{07224F2B-4BD3-493E-BB2D-EB74C95A9D7A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2048Game", "2048Game\2048Game.csproj", "{3E863CD3-8789-4021-BD20-284242BA81E0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "2048Game", "2048Game\2048Game.csproj", "{3E863CD3-8789-4021-BD20-284242BA81E0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2048Game_fixed", "2048Game_fixed\2048Game_fixed.csproj", "{2C172538-FAB2-4B71-9384-61EF619FB22F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{3E863CD3-8789-4021-BD20-284242BA81E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3E863CD3-8789-4021-BD20-284242BA81E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3E863CD3-8789-4021-BD20-284242BA81E0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2C172538-FAB2-4B71-9384-61EF619FB22F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2C172538-FAB2-4B71-9384-61EF619FB22F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2C172538-FAB2-4B71-9384-61EF619FB22F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2C172538-FAB2-4B71-9384-61EF619FB22F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
