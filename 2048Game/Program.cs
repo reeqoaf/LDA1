@@ -17,11 +17,12 @@ namespace LDA1
                 Console.ForegroundColor = ConsoleColor.White;
                 Console.WriteLine("\nPress w, a, s or d");
                 score = getKey(field, score, out canMove);
-                if (canMove) score = placeNewNumber(field, score);
+                if(canMove) score = placeNewNumber(field, score);
                 gameOver = isGameOver(field);
                 updateField(field);
             }
             Console.WriteLine("Game Over! Your score: " + score);
+            Console.ReadLine();
 
         }
 
@@ -226,7 +227,7 @@ namespace LDA1
             }
             for (int i = 0; i < field.GetLength(0); i++)
             {
-                for (int j = field.GetLength(1) - 2; j > 0; j--)
+                for (int j = field.GetLength(1) - 1; j > 0; j--)
                 {
                     if (field[i, j] != 0 && field[i, j - 1] == field[i, j])
                     {
@@ -251,6 +252,8 @@ namespace LDA1
                 }
             }
         }
+
+
         static void moveTop(int[,] field, int score, out bool canMove)
         {
             canMove = false;
