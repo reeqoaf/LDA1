@@ -32,13 +32,19 @@ namespace _2048Game_fixed
             Console.Clear();
             for (int i = 0; i < field.GetLength(0); i++)
             {
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.WriteLine("---------------------------------");
                 for (int j = 0; j < field.GetLength(1); j++)
                 {
+                    Console.Write("|   ");
                     changeColor(field[i, j]);
                     Console.Write(field[i, j] + "\t");
+                    Console.ForegroundColor = ConsoleColor.White;
                 }
-                Console.WriteLine();
+                Console.WriteLine("|");
+
             }
+            Console.WriteLine("---------------------------------");
         }
         static void changeColor(int value)
         {
@@ -108,12 +114,6 @@ namespace _2048Game_fixed
                 for (int j = 0; j < field.GetLength(1); j++)
                 {
                     if (field[i, j] == 0) return false;
-                }
-            }
-            for (int i = 0; i < field.GetLength(0); i++)
-            {
-                for (int j = 0; j < field.GetLength(1); j++)
-                {
                     if (j + 1 != field.GetLength(1) && field[i, j] == field[i, j + 1]) return false;
                     if (j - 1 != -1 && field[i, j] == field[i, j - 1]) return false;
                     if (i + 1 != field.GetLength(0) && field[i + 1, j] == field[i, j]) return false;
@@ -129,8 +129,8 @@ namespace _2048Game_fixed
             Random rand = new Random();
             int x, y;
             int number = (rand.Next(0, 2) == 0 ? 2 : 4);
-            score += number;
             bool temp = true;
+            score += number;
             do
             {
                 x = rand.Next(0, 4);
