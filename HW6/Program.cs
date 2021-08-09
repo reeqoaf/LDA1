@@ -5,7 +5,9 @@ namespace HW6
     class Program
     {
         static Player player;
-        static Enemy[] enemies = new Enemy[3];
+        static Enemy[] enemies = new Enemy[2];
+        static int resources = 0;
+        const int resourceKey = 15;
 
         static void Main(string[] args)
         {
@@ -42,12 +44,47 @@ namespace HW6
             {
                 Render(field);
 
+                Console.WriteLine("\nCount of resources = " + resources + "\n");
+
                 MovePlayer(field, GetDirection());
 
                 foreach (var enemy in enemies)
                 {
                     MoveEnemy(field, enemy, rand.Next(0, field.GetLength(0)));
                 }
+                if (rand.Next(0, 5) == 0) addResource(field);
+            }
+        }
+
+        static void addResource(int[,] field)
+        {
+            Random rand = new Random();
+            int x, y;
+            do
+            {
+                x = rand.Next(0, field.GetLength(0));
+                y = rand.Next(0, field.GetLength(1));
+            }
+            while (field[x, y] != 0);
+            field[x, y] = resourceKey;
+        }
+        static void checkCollisionWithResources(int[,] field, int direct)
+        {
+            switch(direct)
+            {
+                case 0 when field[player.x - 1, player.y] == resourceKey:
+                    resources++;
+                    break;
+                case 1 when field[player.x, player.y - 1] == resourceKey:
+                    resources++;
+                    break;
+                case 2 when field[player.x + 1, player.y] == resourceKey:
+                    resources++;
+                    break;
+                case 3 when field[player.x, player.y + 1] == resourceKey:
+                    resources++;
+                    break;
+
             }
         }
 
@@ -81,6 +118,9 @@ namespace HW6
                 case Enemy.enemyKey:
                     Console.ForegroundColor = ConsoleColor.Red;
                     return enemies[0].enemyView;
+                case resourceKey:
+                    Console.ForegroundColor = ConsoleColor.Magenta;
+                    return "+";
                 default:
                     return "";
             }
@@ -117,16 +157,20 @@ namespace HW6
 
             switch (direct)
             {
-                case 0 when player.x > 0 && field[player.x - 1, player.y] == 0: // u
+                case 0 when player.x > 0 && field[player.x - 1, player.y] != Enemy.enemyKey: // u
+                    checkCollisionWithResources(field, direct);
                     player.x--;
                     break;
-                case 1 when player.y > 0 && field[player.x, player.y - 1] == 0: // l
+                case 1 when player.y > 0 && field[player.x, player.y - 1] != Enemy.enemyKey: // l
+                    checkCollisionWithResources(field, direct);
                     player.y--;
                     break;
-                case 2 when player.x < field.GetLength(0) - 1 && field[player.x + 1, player.y] == 0: // d
+                case 2 when player.x < field.GetLength(0) - 1 && field[player.x + 1, player.y] != Enemy.enemyKey: // d
+                    checkCollisionWithResources(field, direct);
                     player.x++;
                     break;
-                case 3 when player.y < field.GetLength(1) - 1 && field[player.x, player.y + 1] == 0: // r
+                case 3 when player.y < field.GetLength(1) - 1 && field[player.x, player.y + 1] != Enemy.enemyKey: // r
+                    checkCollisionWithResources(field, direct);
                     player.y++;
                     break;
                 default:

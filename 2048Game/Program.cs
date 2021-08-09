@@ -325,18 +325,18 @@ namespace LDA1
                     }
                 }
             }
-            for (int i = field.GetLength(0) - 2; i >= 0; i--)
-            {
-                for (int j = 0; j < field.GetLength(1); j++)
-                {
-                    while (field[i, j] != 0 && field[i + 1, j] == 0)
-                    {
-                        field[i + 1, j] = field[i, j];
-                        field[i, j] = 0;
-                        if (i < 2) i++;
-                    }
-                }
-            }
+            //for (int i = field.GetLength(0) - 2; i >= 0; i--)
+            //{
+            //    for (int j = 0; j < field.GetLength(1); j++)
+            //    {
+            //        while (field[i, j] != 0 && field[i + 1, j] == 0)
+            //        {
+            //            field[i + 1, j] = field[i, j];
+            //            field[i, j] = 0;
+            //            if (i < 2) i++;
+            //        }
+            //    }
+            //}
         }
     }
 }
