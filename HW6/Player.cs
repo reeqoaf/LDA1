@@ -8,7 +8,6 @@ namespace HW6
     {
         public int x { get; set; }
         public int y { get; set; }
-        public const int playerKey = 10;
         public string playerView { get; }
         public Player(string playerView, int x, int y)
         {

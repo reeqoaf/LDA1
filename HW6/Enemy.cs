@@ -6,20 +6,19 @@ namespace HW6
 {
     class Enemy
     {
-        public int x { get; set; }
-        public int y { get; set; }
-        public const int enemyKey = 12;
-        public string enemyView { get; }
+        public int X { get; set; }
+        public int Y { get; set; }
+        public string EnemyView { get; }
         public Enemy(string playerView, int x, int y)
         {
-            this.enemyView = playerView;
-            this.x = x;
-            this.y = y;
+            this.EnemyView = playerView;
+            this.X = x;
+            this.Y = y;
         }
         public void setPos(int x, int y)
         {
-            this.x = x;
-            this.y = y;
+            this.X = x;
+            this.Y = y;
         }
     }
 }

@@ -7,7 +7,6 @@ namespace HW6
         static Player player;
         static Enemy[] enemies = new Enemy[2];
         static int resources = 0;
-        const int resourceKey = 15;
 
         static void Main(string[] args)
         {
@@ -20,12 +19,12 @@ namespace HW6
             {
                 for (int k = 0; k < field.GetLength(1); k++)
                 {
-                    field[i, k] = new Cell(Cell.Type.FreeCell);
+                    field[i, k] = new Cell(CellType.FreeCell);
                 }
             }
 
             player = new Player("\u263A", rand.Next(0, field.GetLength(0)), rand.Next(0, field.GetLength(1)));
-            field[player.x, player.y].CellType = Cell.Type.PlayerCell;
+            field[player.x, player.y].CellType = CellType.PlayerCell;
 
             for (int i = 0; i < enemies.Length; i++)
             {
@@ -35,9 +34,9 @@ namespace HW6
                     x = rand.Next(0, field.GetLength(0));
                     y = rand.Next(0, field.GetLength(1));
                 }
-                while (field[x, y].CellType != Cell.Type.FreeCell);
+                while (field[x, y].CellType != CellType.FreeCell);
                 enemies[i] = new Enemy("\u263A", x, y);
-                field[x, y].CellType = Cell.Type.EnemyCell;
+                field[x, y].CellType = CellType.EnemyCell;
             }
 
             while (true)
@@ -65,23 +64,23 @@ namespace HW6
                 x = rand.Next(0, field.GetLength(0));
                 y = rand.Next(0, field.GetLength(1));
             }
-            while (field[x, y].CellType != Cell.Type.FreeCell);
-            field[x, y].CellType = Cell.Type.ResourceCell;
+            while (field[x, y].CellType != CellType.FreeCell);
+            field[x, y].CellType = CellType.ResourceCell;
         }
         static void checkCollisionWithResources(Cell[,] field, int direct)
         {
             switch(direct)
             {
-                case 0 when field[player.x - 1, player.y].CellType == Cell.Type.ResourceCell:
+                case 0 when field[player.x - 1, player.y].CellType == CellType.ResourceCell:
                     resources++;
                     break;
-                case 1 when field[player.x, player.y - 1].CellType == Cell.Type.ResourceCell:
+                case 1 when field[player.x, player.y - 1].CellType == CellType.ResourceCell:
                     resources++;
                     break;
-                case 2 when field[player.x + 1, player.y].CellType == Cell.Type.ResourceCell:
+                case 2 when field[player.x + 1, player.y].CellType == CellType.ResourceCell:
                     resources++;
                     break;
-                case 3 when field[player.x, player.y + 1].CellType == Cell.Type.ResourceCell:
+                case 3 when field[player.x, player.y + 1].CellType == CellType.ResourceCell:
                     resources++;
                     break;
 
@@ -108,17 +107,17 @@ namespace HW6
             Console.WriteLine(sep);
         }
 
-        static string GetCellView(Cell.Type value)
+        static string GetCellView(CellType value)
         {
             switch(value)
             {
-                case Cell.Type.PlayerCell:
+                case CellType.PlayerCell:
                     Console.ForegroundColor = ConsoleColor.Green;
                     return player.playerView;
-                case Cell.Type.EnemyCell:
+                case CellType.EnemyCell:
                     Console.ForegroundColor = ConsoleColor.Red;
-                    return enemies[0].enemyView;
-                case Cell.Type.ResourceCell:
+                    return enemies[0].EnemyView;
+                case CellType.ResourceCell:
                     Console.ForegroundColor = ConsoleColor.Magenta;
                     return "+";
                 default:
@@ -153,23 +152,23 @@ namespace HW6
         static void MovePlayer(Cell[,] field, int direct)
         {
 
-            field[player.x, player.y].CellType = Cell.Type.FreeCell;
+            field[player.x, player.y].CellType = CellType.FreeCell;
 
             switch (direct)
             {
-                case 0 when player.x > 0 && field[player.x - 1, player.y].CellType != Cell.Type.EnemyCell: // u
+                case 0 when player.x > 0 && field[player.x - 1, player.y].CellType != CellType.EnemyCell: // u
                     checkCollisionWithResources(field, direct);
                     player.x--;
                     break;
-                case 1 when player.y > 0 && field[player.x, player.y - 1].CellType != Cell.Type.EnemyCell: // l
+                case 1 when player.y > 0 && field[player.x, player.y - 1].CellType != CellType.EnemyCell: // l
                     checkCollisionWithResources(field, direct);
                     player.y--;
                     break;
-                case 2 when player.x < field.GetLength(0) - 1 && field[player.x + 1, player.y].CellType != Cell.Type.EnemyCell: // d
+                case 2 when player.x < field.GetLength(0) - 1 && field[player.x + 1, player.y].CellType != CellType.EnemyCell: // d
                     checkCollisionWithResources(field, direct);
                     player.x++;
                     break;
-                case 3 when player.y < field.GetLength(1) - 1 && field[player.x, player.y + 1].CellType != Cell.Type.EnemyCell: // r
+                case 3 when player.y < field.GetLength(1) - 1 && field[player.x, player.y + 1].CellType != CellType.EnemyCell: // r
                     checkCollisionWithResources(field, direct);
                     player.y++;
                     break;
@@ -177,31 +176,31 @@ namespace HW6
                     break;
             }
 
-            field[player.x, player.y].CellType = Cell.Type.PlayerCell;
+            field[player.x, player.y].CellType = CellType.PlayerCell;
         }
         static void MoveEnemy(Cell[,] field, Enemy enemy, int direct)
         {
-            field[enemy.x, enemy.y].CellType = Cell.Type.FreeCell;
+            field[enemy.X, enemy.Y].CellType = CellType.FreeCell;
 
             switch (direct)
             {
-                case 0 when enemy.x > 0 && field[enemy.x - 1, enemy.y].CellType == Cell.Type.FreeCell: // u
-                    enemy.x--;
+                case 0 when enemy.X > 0 && field[enemy.X - 1, enemy.Y].CellType == CellType.FreeCell: // u
+                    enemy.X--;
                     break;
-                case 1 when enemy.y > 0 && field[enemy.x, enemy.y - 1].CellType == Cell.Type.FreeCell: // l
-                    enemy.y--;
+                case 1 when enemy.Y > 0 && field[enemy.X, enemy.Y - 1].CellType == CellType.FreeCell: // l
+                    enemy.Y--;
                     break;
-                case 2 when enemy.x < field.GetLength(0) - 1 && field[enemy.x + 1, enemy.y].CellType == Cell.Type.FreeCell: // d
-                    enemy.x++;
+                case 2 when enemy.X < field.GetLength(0) - 1 && field[enemy.X + 1, enemy.Y].CellType == CellType.FreeCell: // d
+                    enemy.X++;
                     break;
-                case 3 when enemy.y < field.GetLength(1) - 1 && field[enemy.x, enemy.y + 1].CellType == Cell.Type.FreeCell: // r
-                    enemy.y++;
+                case 3 when enemy.Y < field.GetLength(1) - 1 && field[enemy.X, enemy.Y + 1].CellType == CellType.FreeCell: // r
+                    enemy.Y++;
                     break;
                 default:
                     break;
             }
 
-            field[enemy.x, enemy.y].CellType = Cell.Type.EnemyCell;
+            field[enemy.X, enemy.Y].CellType = CellType.EnemyCell;
         }
     }
 }
