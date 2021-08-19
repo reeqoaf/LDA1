@@ -79,8 +79,17 @@ namespace HW7_8
                         break;
                     case 4:
                         ShowAviary(GrandZoo.Aviaries);
+                        int input = GetNumber() - 1;
+                        if (input < 0 || input >= GrandZoo.Aviaries.Length)
+                        {
+                            Console.WriteLine("There no aviary with that index!");
+                        }
+                        else
+                        {
+                            PrintAviaryInfo(GrandZoo.Aviaries[input]);
+                        }
                         break;
-                    case 5:
+                    case 0:
                         temp = false;
                         break;
                     default:
@@ -97,7 +106,7 @@ namespace HW7_8
             Console.WriteLine("2. Get visitors info");
             Console.WriteLine("3. Get employees info");
             Console.WriteLine("4. Get information about aviary");
-            Console.WriteLine("5. Exit");
+            Console.WriteLine("0. Exit");
         }
         public static void ShowAviary(Aviary[] aviaries)
         {
@@ -106,15 +115,6 @@ namespace HW7_8
             for (int i = 0; i < aviaries.Length; i++)
             {
                 Console.WriteLine($"{i + 1} {aviaries[i].Name}");
-            }
-            int input = GetNumber() - 1;
-            if(input < 0 || input >= aviaries.Length)
-            {
-                Console.WriteLine("There no aviary with that index!");
-            }
-            else
-            {
-                PrintAviaryInfo(aviaries[input]);
             }
         }
         public static int GetNumber()

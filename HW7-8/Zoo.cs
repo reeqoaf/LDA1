@@ -18,20 +18,6 @@ namespace HW7_8
             Visitors = visitors;
             Employees = employees;
         }
-        public void AddAviary(Aviary aviary)
-        {
-            Aviary[] newAviaries = new Aviary[Aviaries.Length + 1];
-            Aviaries.CopyTo(newAviaries, 0);
-            newAviaries[newAviaries.Length - 2] = aviary;
-            Aviaries = newAviaries;
-        }
-        public void AddEmployee(Employee employee)
-        {
-            Employee[] newEmployees = new Employee[Employees.Length + 1];
-            Employees.CopyTo(newEmployees, 0);
-            newEmployees[newEmployees.Length - 2] = employee;
-            Employees = newEmployees;
-        }
         public Employee GetOwner()
         {
             foreach (var emp in Employees)
