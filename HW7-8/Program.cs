@@ -133,8 +133,6 @@ namespace HW7_8
             Console.WriteLine("4. Get information about aviary");
             Console.WriteLine("5. Add new employee");
             Console.WriteLine("6. Add new visitor");
-            Console.WriteLine("7. Add new aviary");
-            Console.WriteLine("8. Add new animal to aviary");
             Console.WriteLine("0. Exit");
         }
         public static Post GetPost()
