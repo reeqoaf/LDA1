@@ -6,10 +6,10 @@ namespace HW7_8
 {
     public enum Post
     {
-        Owner,
         Administrator,
         Cleaner,
         Vet,
-        Caretaker
+        Caretaker,
+        Owner
     }
 }

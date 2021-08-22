@@ -15,9 +15,9 @@ namespace HW7_8
                     }),
                 new Aviary("Spiders Aviary", "Here you can see different spiders like black widow or other", new Animal[]
                     {
-                        new Spider("Black Widow Spider", 0.09, 14, true, 8),
-                        new Spider("Tarantula Spider", 0.17, 10, true, 8),
-                        new Spider("Grammostola Spider", 0.15, 16, false, 8),
+                        new Spider("Black Widow Spider", 0.09, 14, true),
+                        new Spider("Tarantula Spider", 0.17, 10, true),
+                        new Spider("Grammostola Spider", 0.15, 16, false),
                     })
             };
 
@@ -32,9 +32,9 @@ namespace HW7_8
                     }),
                     new Aviary("Spiders Aviary", "Here you can see different spiders like black widow or other", new Animal[]
                     {
-                        new Spider("Black Widow Spider", 0.09, 14, true, 8),
-                        new Spider("Tarantula Spider", 0.17, 10, true, 8),
-                        new Spider("Grammostola Spider", 0.15, 16, false, 8),
+                        new Spider("Black Widow Spider", 0.09, 14, true),
+                        new Spider("Tarantula Spider", 0.17, 10, true),
+                        new Spider("Grammostola Spider", 0.15, 16, false),
                     })
                 },
                 new Visitor[]
@@ -51,7 +51,7 @@ namespace HW7_8
                     new Employee("Jensen", "Bailey", 32, 60000, Post.Vet, 7),
                     new Employee("Alicia", "Nicholson", 35, 40000, Post.Cleaner, 5),
                 });
-            for(int i = 0; i < GrandZoo.Visitors.Length; i++)
+            for(int i = 0; i < GrandZoo.VisitorsCount; i++)
             {
                 if (i % 2 == 1)
                 {
@@ -66,7 +66,7 @@ namespace HW7_8
                 Console.Clear();
                 Console.WriteLine("Welcome to Grand Zoo! Choose what you want:");
                 MainMenu();
-                switch (GetNumber())
+                switch (GetNumber("number"))
                 {
                     case 1:
                         PrintZooInfo(GrandZoo);
@@ -78,8 +78,8 @@ namespace HW7_8
                         PrintEmployeesInfo(GrandZoo);
                         break;
                     case 4:
-                        ShowAviary(GrandZoo.Aviaries);
-                        int input = GetNumber() - 1;
+                        ShowAviary(GrandZoo);
+                        int input = GetNumber("number") - 1;
                         if (input < 0 || input >= GrandZoo.Aviaries.Length)
                         {
                             Console.WriteLine("There no aviary with that index!");
@@ -88,6 +88,31 @@ namespace HW7_8
                         {
                             PrintAviaryInfo(GrandZoo.Aviaries[input]);
                         }
+                        break;
+                    case 5:
+                        string firstName = GetString("first name");
+                        string lastName = GetString("last name");
+                        int age = GetNumber("age");
+                        int salary = GetNumber("salary");
+                        int experience = GetNumber("experience");
+                        Post post = GetPost();
+                        Employee employee = new Employee(firstName, lastName, age, salary, post, experience);
+                        GrandZoo.AddEmployee(employee);
+                        break;
+                    case 6:
+                        firstName = GetString("first name");
+                        lastName = GetString("last name");
+                        age = GetNumber("age");
+                        TicketType ticket = GetTicketType();
+                        Visitor visitor = new Visitor(firstName, lastName, age, ticket);
+                        int isInZoo;
+                        Console.WriteLine("Is visitor in zoo?(enter 1 or 0)");
+                        do
+                        {
+                            isInZoo = GetNumber("number");
+                        } while (isInZoo != 0 && isInZoo != 1);
+                        visitor.IsInZoo = isInZoo == 1 ? true : false;
+                        GrandZoo.AddVisitor(visitor);
                         break;
                     case 0:
                         temp = false;
@@ -98,7 +123,7 @@ namespace HW7_8
                 }
                 Console.WriteLine("Press any key to continue...");
                 Console.ReadKey();
-            } while (temp);
+            } while (true);
         }
         public static void MainMenu()
         {
@@ -106,24 +131,64 @@ namespace HW7_8
             Console.WriteLine("2. Get visitors info");
             Console.WriteLine("3. Get employees info");
             Console.WriteLine("4. Get information about aviary");
+            Console.WriteLine("5. Add new employee");
+            Console.WriteLine("6. Add new visitor");
+            Console.WriteLine("7. Add new aviary");
+            Console.WriteLine("8. Add new animal to aviary");
             Console.WriteLine("0. Exit");
         }
-        public static void ShowAviary(Aviary[] aviaries)
+        public static Post GetPost()
+        {
+            Post output = Post.Cleaner;
+            for(int i = 0; i < Enum.GetValues(typeof(Post)).Length - 1; i++)
+            {
+                Console.WriteLine($"{i+1}. {(Post)i}");
+            }
+            int temp;
+            do
+            {
+                temp = GetNumber("number of the post");
+            } while (temp < 1 || temp >= Enum.GetValues(typeof(Post)).Length);
+            output = (Post)(temp - 1);
+            return output;
+        }
+        public static TicketType GetTicketType()
+        {
+            TicketType output = TicketType.Adult;
+            for (int i = 0; i < Enum.GetValues(typeof(TicketType)).Length; i++)
+            {
+                Console.WriteLine($"{i + 1}. {(TicketType)i}");
+            }
+            int temp;
+            do
+            {
+                temp = GetNumber("number of the ticket");
+            } while (temp < 1 || temp - 1 >= Enum.GetValues(typeof(TicketType)).Length);
+            output = (TicketType)(temp - 1);
+            return output;
+        }
+        public static void ShowAviary(Zoo zoo)
         {
             Console.WriteLine("Select aviary:");
 
-            for (int i = 0; i < aviaries.Length; i++)
+            for (int i = 0; i < zoo.AviariesCount; i++)
             {
-                Console.WriteLine($"{i + 1} {aviaries[i].Name}");
+                Console.WriteLine($"{i + 1} {zoo.Aviaries[i].Name}");
             }
         }
-        public static int GetNumber()
+        public static string GetString(string msg)
+        {
+            Console.Write($"Enter {msg}: ");
+            string input = Console.ReadLine();
+            return input;
+        }
+        public static int GetNumber(string msg)
         {
             bool temp = true;
             int input;
             do
             {
-                Console.Write("Enter number: ");
+                Console.Write($"Enter {msg}: ");
                 temp = int.TryParse(Console.ReadLine(), out input);
                 if(!temp)
                 {
@@ -149,27 +214,27 @@ namespace HW7_8
         public static void PrintVisitorsInfo(Zoo zoo)
         {
             Console.WriteLine("Number of Visitors: " + zoo.Visitors.Length);
-            foreach(var visitor in zoo.Visitors) 
+            for (int i = 0; i < zoo.VisitorsCount; i++)
             {
-                string msg = visitor.IsInZoo ? "The visitor is in zoo" : "The visitor is not in zoo";
-                Console.WriteLine($"{visitor.FirstName} {visitor.LastName}: Age = {visitor.Age}, {msg}, Ticket type is {visitor.TicketType}, Fun level = {visitor.FunLevel}");
+                string msg = zoo.Visitors[i].IsInZoo ? "The visitor is in zoo" : "The visitor is not in zoo";
+                Console.WriteLine($"{i+1}. {zoo.Visitors[i].FirstName} {zoo.Visitors[i].LastName}: Age = {zoo.Visitors[i].Age}, {msg}, Ticket type is {zoo.Visitors[i].TicketType}, Fun level = {zoo.Visitors[i].FunLevel}");
             }
         }
         public static void PrintEmployeesInfo(Zoo zoo)
         {
             Console.WriteLine("Number of Visitors: " + zoo.Visitors.Length);
-            foreach (var employee in zoo.Employees)
+            for(int i = 0; i < zoo.EmployeesCount; i++)
             {
-                Console.WriteLine($"{employee.FirstName} {employee.LastName}: Age = {employee.Age}, Experience = {employee.Experience} years, Post is {employee.Post}, Salary = {employee.Salary}");
+                Console.WriteLine($"{i+1}. {zoo.Employees[i].FirstName} {zoo.Employees[i].LastName}: Age = {zoo.Employees[i].Age}, Experience = {zoo.Employees[i].Experience} years, Post is {zoo.Employees[i].Post}, Salary = {zoo.Employees[i].Salary}");
             }
         }
         public static void PrintAviaryInfo(Aviary aviary)
         {
             Console.WriteLine("Name: " + aviary.Name);
             Console.WriteLine("Desctription: " + aviary.Description);
-            foreach(Animal animal in aviary.Animals)
+            for(int i = 0; i < aviary.AnimalsCount; i++)
             {
-                PrintAnimalInfo(animal);
+                PrintAnimalInfo(aviary.Animals[i]);
             }
 
         }

@@ -9,6 +9,7 @@ namespace HW7_8
         public string Form { get; private set; }
         public double Weight { get; set; }
         public int Age { get; set; }
+        public Aviary aviary { get; set; }
         public virtual void MakeNoise()
         {
             Console.WriteLine("Default Noise");
