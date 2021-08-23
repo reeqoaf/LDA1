@@ -35,6 +35,12 @@ namespace HW7_8
                         new Spider("Black Widow Spider", 0.09, 14, true),
                         new Spider("Tarantula Spider", 0.17, 10, true),
                         new Spider("Grammostola Spider", 0.15, 16, false),
+                    }),
+                    new Aviary("Parrots Aviary", "Here you can see different parrots", new Animal[]
+                    {
+                        new Parrot("African grey parrot", 2, 3, "grey"),
+                        new Parrot("Budgie parrot", 0.25, 7, "red"),
+                        new Parrot("Cocktiel parrot", 0.35, 4, "yellow"),
                     })
                 },
                 new Visitor[]
@@ -60,7 +66,8 @@ namespace HW7_8
                 GrandZoo.Visitors[i].IsInZoo = true;
                 GrandZoo.Visitors[i].IncreaseFun();
             }
-            bool temp = true;
+            #region task7_8
+            /*bool temp = true;
             do
             {
                 Console.Clear();
@@ -123,7 +130,24 @@ namespace HW7_8
                 }
                 Console.WriteLine("Press any key to continue...");
                 Console.ReadKey();
-            } while (true);
+            } while (true);*/
+            #endregion
+            // использование интерфейсов //
+            Console.WriteLine("Person: ");
+            GrandZoo.Visitors[0].Move();
+            GrandZoo.Visitors[0].Speak();
+            GrandZoo.Visitors[0].Eat();
+            Console.WriteLine("Animals: ");
+            GrandZoo.Aviaries[0].Animals[0].Move();
+            GrandZoo.Aviaries[0].Animals[0].Eat(); 
+
+            GrandZoo.Aviaries[1].Animals[0].Move();
+            GrandZoo.Aviaries[1].Animals[0].Eat();
+
+            ((Parrot)GrandZoo.Aviaries[2].Animals[0]).Eat();
+            ((Parrot)GrandZoo.Aviaries[2].Animals[0]).Speak();
+            ((Parrot)GrandZoo.Aviaries[2].Animals[0]).Fly();
+            ((Parrot)GrandZoo.Aviaries[2].Animals[0]).Move();
         }
         public static void MainMenu()
         {

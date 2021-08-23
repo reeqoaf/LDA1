@@ -16,5 +16,16 @@ namespace HW7_8
         {
             Console.WriteLine("Spider's Noise");
         }
+
+        public override void Move()
+        {
+            Console.WriteLine("Spider is moving");
+        }
+
+        public override void Eat()
+        {
+            Console.WriteLine("Spider is eating");
+
+        }
     }
 }

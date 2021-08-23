@@ -10,9 +10,20 @@ namespace HW7_8
         {
 
         }
+
+        public override void Eat()
+        {
+            Console.WriteLine("Tiger is eating");
+        }
+
         public override void MakeNoise()
         {
             Console.WriteLine("Tiger's Noise");
+        }
+
+        public override void Move()
+        {
+            Console.WriteLine("Tiger is moving");
         }
     }
 }

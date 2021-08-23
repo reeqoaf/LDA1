@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace HW7_8
+namespace HW7_8.Interfaces
 {
-    public class Store
+    public interface IEating
     {
-        //private Product Products()
+        void Eat();
     }
 }
