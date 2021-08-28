@@ -7,11 +7,13 @@ namespace HW10
     public class Field
     {
         public static string Letters { get; } = "ABCDEFGHIJ";
+        public List<Ship> Ships { get; set; }
         public CellType[,] PlayField { get; set; }
         public int CountOfAliveShipCells { get; set; }
         public Field()
         {
             PlayField = new CellType[10, 10];
+            Ships = new List<Ship>();
         }
         public void PrintField()
         {
@@ -74,6 +76,7 @@ namespace HW10
                 }
             }
             CountOfAliveShipCells += shipsize;
+            Ships.Add(new Ship(shipsize, x, y, orientation));
             if (shipsize == 1)
             {
                 PlayField[x, y] = CellType.Ship;
@@ -94,5 +97,6 @@ namespace HW10
             }
             return true;
         }
+
     }
 }

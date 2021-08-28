@@ -6,24 +6,24 @@ namespace HW10
     {
         static void Main(string[] args)
         {
-            Player player1 = new Player();
-            Player player2 = new Player();
+            Console.WriteLine("Welcome to see battle!");
+            Player player1 = new Player(EnterString("name of first player"));
+            Player player2 = new Player(EnterString("name of second player"));
             player1.Enemy = player2;
             player2.Enemy = player1;
             bool gameIsNotOver = true;
             StartGame(player1, player2);
             player1.EnemiesField.CountOfAliveShipCells = player1.PlayersField.CountOfAliveShipCells;
             player2.EnemiesField.CountOfAliveShipCells = player2.PlayersField.CountOfAliveShipCells;
-
             do
             {
-                Console.WriteLine("Player1's move");
+                Console.WriteLine($"{player1.Name}'s move");
                 gameIsNotOver = player1.StartMove();
                 if(!gameIsNotOver)
                 {
                     break;
                 }
-                Console.WriteLine("Player2's move");
+                Console.WriteLine($"{player2.Name}'s move");
                 gameIsNotOver = player2.StartMove();
                 
             } while (gameIsNotOver);
@@ -32,14 +32,13 @@ namespace HW10
         }
         public static void StartGame(Player player1, Player player2)
         {
-            Console.WriteLine("Welcome to see battle!");
-            Console.WriteLine("Player1 is starting with placing ships");
+            Console.WriteLine($"{player1.Name} is starting with placing ships");
             Console.WriteLine("Press any key to start");
             Console.ReadKey();
             Console.WriteLine();
             Console.ResetColor();
             GeneratePlayerField(player1);
-            Console.WriteLine("Okay now player2 is placing his ships");
+            Console.WriteLine($"Okay now {player2.Name} is placing his ships");
             Console.WriteLine("Press any key to continue");
             Console.ReadKey();
             Console.WriteLine();
@@ -47,7 +46,7 @@ namespace HW10
             GeneratePlayerField(player2);
             Console.ResetColor();
             Console.Clear();
-            Console.WriteLine("Now we start the game, player1 will be first");
+            Console.WriteLine($"Now we start the game, {player1.Name} will be first");
             Console.WriteLine("Press any key to continue");
             Console.ReadKey();
             Console.WriteLine();
@@ -141,6 +140,10 @@ namespace HW10
             }
             return new int[] { y - 1, x };
         }
-
+        public static string EnterString(string text)
+        {
+            Console.WriteLine($"Enter {text}: ");
+            return Console.ReadLine();
+        }
     }
 }

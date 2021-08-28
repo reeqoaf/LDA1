@@ -6,13 +6,15 @@ namespace HW10
 {
     public class Player
     {
+        public string Name { get; set; }
         public Player Enemy { get; set; }
         public Field PlayersField { get; set; }
         public Field EnemiesField { get; set; }
-        public Player()
+        public Player(string name)
         {
             PlayersField = new Field();
             EnemiesField = new Field();
+            Name = name;
         }
         public bool StartMove()
         {
@@ -45,7 +47,7 @@ namespace HW10
                 }
                 if (EnemiesField.CountOfAliveShipCells == 0)
                 {
-                    Console.WriteLine("You won! Enemy has no alive ships");
+                    Console.WriteLine($"{Name} won! {Enemy.Name} has no alive ships");
                     return false;
                 }
                 Console.WriteLine("Press any key to continue move");
@@ -68,6 +70,12 @@ namespace HW10
                     Enemy.PlayersField.PlayField[x, y] == CellType.Ship ? CellType.BrokenShip : CellType.BrokenPartOfShip;
                 Enemy.PlayersField.CountOfAliveShipCells--;
                 EnemiesField.CountOfAliveShipCells--;
+                Ship ship = Enemy.PlayersField.Ships.Find(ship => ship.IsShipAtCoords(x, y) == true);
+                ship.AliveParts--;
+                if(ship.AliveParts == 0)
+                {
+                    BreakShip(ship);
+                }
                 return 1;
             }
             else if (Enemy.PlayersField.PlayField[x, y] == CellType.BrokenShip || 
@@ -77,6 +85,20 @@ namespace HW10
                 return 2;
             }
             return 0;
+        }
+        public void BreakShip(Ship ship)
+        {
+            for (int i = 0; i < ship.Length; i++)
+            {
+                if (ship.Orientation) 
+                { 
+                    Enemy.PlayersField.PlayField[ship.X + i, ship.Y] = EnemiesField.PlayField[ship.X + i, ship.Y] = CellType.BrokenShip; 
+                }
+                else
+                {
+                    Enemy.PlayersField.PlayField[ship.X, ship.Y + i] = EnemiesField.PlayField[ship.X, ship.Y + i] = CellType.BrokenShip;
+                }
+            }
         }
     }
 }
