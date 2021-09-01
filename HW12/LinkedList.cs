@@ -77,7 +77,7 @@ namespace HW12
             element.Next = prev;
         }
 
-        public IEnumerator GetEnumerator()
+        public IEnumerator<T> GetEnumerator()
         {
             return new ListEnumerator<T>(this);
         }

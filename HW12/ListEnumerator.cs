@@ -4,7 +4,7 @@ using System.Text;
 
 namespace HW12
 {
-    public class ListEnumerator<T> : IEnumerator where T : class
+    public class ListEnumerator<T> : IEnumerator<T> where T : class
     {
         public LinkedList<T> List { get; set; }
 

@@ -3,8 +3,8 @@ using System.Text;
 
 namespace HW12
 {
-    public interface IEnumerable<out T>
+    public interface IEnumerable<T> where T : class
     {
-        IEnumerator GetEnumerator();
+        IEnumerator<T> GetEnumerator();
     }
 }
