@@ -20,5 +20,8 @@ namespace CW1
         {
             Messages.Add(message);
         }
+        public void ShowAllMessages()
+        {
+        }
     }
 }
