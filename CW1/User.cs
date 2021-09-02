@@ -7,14 +7,18 @@ namespace CW1
         public string Username { get; set; }
         public string Name { get; set; }
         public int Age { get; set; }
-        List<ISendable> Messages { get; set; }
+        public List<ISendable> Messages { get; set; }
 
-        public User(string username, string name, int age, List<ISendable> messages)
+        public User(string username, string name, int age)
         {
             Username = username;
             Name = name;
             Age = age;
-            Messages = messages;
+            Messages = new List<ISendable>();
+        }
+        public void GetMessage(ISendable message)
+        {
+            Messages.Add(message);
         }
     }
 }
