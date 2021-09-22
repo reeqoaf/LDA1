@@ -76,9 +76,9 @@ namespace HW13_16
             HttpClient httpClient = new HttpClient();
             users
                 .GroupBy(x => x.name)
-                .Select(y => y.First())
+                .Select(y => y.First()) // убрал дубликаты
                 .ToList()
-                .ForEach(async user => await httpClient.GetStringAsync($"http://localhost:5000/user/add?username={user.name}"));
+                .ForEach(async user => await httpClient.GetStringAsync($"http://localhost:5000/user/add?username={user.name}")); 
         }
     }
 }
